@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import it.redlor.androidjokelibrary.JokeActivity;
 
-class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi mApi = null;
     private Context mContext;
     private String mResult;

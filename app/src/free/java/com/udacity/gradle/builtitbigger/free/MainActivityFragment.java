@@ -11,6 +11,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.JokesAsyncTask;
 import com.udacity.gradle.builditbigger.R;
+import com.google.android.gms.ads.InterstitialAd;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,8 @@ import it.redlor.javalibrary.JavaJokes;
 public class MainActivityFragment extends Fragment {
     @BindView(R.id.joke_button)
     Button jokeButton;
+
+private InterstitialAd mInterstitialAd;
 
     public MainActivityFragment() {
     }
