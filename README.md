@@ -1,3 +1,8 @@
+## About 
+Project 5 Udacity Android Developer Nandegree. Basically the app is developed to apply Gradle knowledge gained in the course.
+Below the complete description of the task.
+
+
 # Gradle for Android and Java Final Project
 
 In this project, you will create an app with multiple flavors that uses
