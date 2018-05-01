@@ -9,9 +9,6 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import 
-import com.udacity.gradle.builditbigger.backend.MyBean;
-import com.udacity.gradle.builditbigger.backend.MyEndpoint;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
@@ -32,7 +29,7 @@ class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
         if (mApi == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-                    .setRootUrl(mContext.getString(R.string.api_url))
+                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
                 public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -42,7 +39,7 @@ class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
             mApi = builder.build();
         }
         try {
-            return mApi.getJoke(new MyBean()).execute().getJoke();
+            return mApi.provideJoke().execute().getJokeText();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -59,7 +56,8 @@ class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
 
     private void startJokeActivity() {
         Intent intent = new Intent(mContext, JokeActivity.class);
-        intent.putExtra("joke_intent", mResult);
+        intent.putExtra("passedJoke", mResult);
+        System.out.println("passing:" + mResult);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }

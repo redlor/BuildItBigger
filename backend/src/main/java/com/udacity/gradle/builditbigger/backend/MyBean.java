@@ -1,19 +1,15 @@
 package com.udacity.gradle.builditbigger.backend;
 
-import it.redlor.javalibrary.JavaJokes;
-
 /** The object model for the data we are sending through endpoints */
 public class MyBean {
 
-    private JavaJokes javaJokes;
+    private String jokeText;
 
-    public MyBean() {
-        this.javaJokes = javaJokes;
+    public String getJokeText() {
+        return jokeText;
     }
 
-    public String getJoke() {
-        return javaJokes.getRandomJoke();
+    public void setData(String jokeText) {
+        this.jokeText = jokeText;
     }
-
-
 }

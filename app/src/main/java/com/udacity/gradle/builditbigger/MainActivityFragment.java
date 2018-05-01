@@ -51,9 +51,11 @@ public class MainActivityFragment extends Fragment {
                 intent.putExtra("passedJoke", joke);
                 startActivity(intent);*/
 
-            new JokesAsyncTask(getContext());
+            new JokesAsyncTask(getContext()).execute();
             }
         });
+
+
         return root;
     }
 }
