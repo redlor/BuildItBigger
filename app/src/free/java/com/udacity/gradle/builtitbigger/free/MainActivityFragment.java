@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.udacity.gradle.builditbigger.JokesAsyncTask;
 import com.udacity.gradle.builditbigger.R;
-import com.google.android.gms.ads.InterstitialAd;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +23,8 @@ import it.redlor.javalibrary.JavaJokes;
 public class MainActivityFragment extends Fragment {
     @BindView(R.id.joke_button)
     Button jokeButton;
-
-private InterstitialAd mInterstitialAd;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     public MainActivityFragment() {
     }
@@ -56,7 +55,7 @@ private InterstitialAd mInterstitialAd;
                 intent.putExtra("passedJoke", joke);
                 startActivity(intent);*/
 
-            new JokesAsyncTask(getContext()).execute();
+                new JokesAsyncTask(getContext(), progressBar).execute();
             }
         });
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -19,10 +21,21 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
     private static MyApi mApi = null;
     private Context mContext;
     private String mResult;
+    private ProgressBar mProgressBar;
 
-    public JokesAsyncTask(Context context) {
+    public JokesAsyncTask(Context context, ProgressBar progressBar) {
         this.mContext = context;
+        this.mProgressBar = progressBar;
     }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -31,11 +44,11 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
                     new AndroidJsonFactory(), null)
                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                @Override
-                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                    abstractGoogleClientRequest.setDisableGZipContent(true);
-                }
-            });
+                        @Override
+                        public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+                            abstractGoogleClientRequest.setDisableGZipContent(true);
+                        }
+                    });
             mApi = builder.build();
         }
         try {
@@ -48,10 +61,13 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        mResult = result;
-                startJokeActivity();
-            }
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.GONE);
+        }
 
+        mResult = result;
+        startJokeActivity();
+    }
 
 
     private void startJokeActivity() {
