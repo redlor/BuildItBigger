@@ -22,7 +22,7 @@ public class FunctionalTest {
             MainActivity.class);
 
     @Test
-    public void changeText_sameActivity() {
+    public void textNotNull() {
         onView(withId(R.id.joke_button))
                 .perform(click());
         onView(withId(R.id.joke_text_view))
